@@ -1,0 +1,15 @@
+<div class="Drinks">
+    <mat-card class="drink-card">
+      <mat-card-header>
+        <mat-card-title class="nome">{{ bebida.name }}</mat-card-title>
+      </mat-card-header>
+      <img mat-card-image [src]="bebida.image" alt="{{ bebida.name }}">
+      <mat-card-content>
+        <ul>
+          <li *ngFor="let ingredient of bebida.ingredients">{{ ingredient }}</li>
+        </ul>
+        <p>{{ bebida.instructions }}</p>
+      </mat-card-content>
+    </mat-card>
+</div>
+  
