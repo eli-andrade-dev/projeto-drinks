@@ -13,6 +13,9 @@ import { FooterComponent } from './components/footer/footer.component';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
+
 
 @NgModule({
   declarations: [
@@ -24,13 +27,18 @@ import { MatCardModule } from '@angular/material/card';
     HeaderComponent,
     FooterComponent,
     
+    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,
-    MatCardModule
+    MatCardModule,
+    HttpClientModule,
+    RouterModule,
+
+
   ],
   providers: [],
   bootstrap: [AppComponent]

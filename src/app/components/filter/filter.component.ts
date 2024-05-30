@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { DrinkFilterType } from 'src/app/types/drinks-filter.type';
 
 
 @Component({
@@ -9,14 +10,28 @@ import { Component, EventEmitter, Output } from '@angular/core';
 export class FilterComponent {
 
   public filtro: string = '';
-  @Output() filtroEmitter: EventEmitter<string> = new EventEmitter<string>();
+  public sortOrder: string = 'DESC';
+  public isAvailable: string = '';
+
+  @Output() filtroEmitter: EventEmitter<DrinkFilterType> = 
+  new EventEmitter<DrinkFilterType>();
 
   public buscarBebidaPorNome() {
-    this.filtroEmitter.emit(this.filtro);
+    const filtroBebida: DrinkFilterType = {
+      search: this.filtro,
+      sort: this.sortOrder,
+    };
+
+    if (this.isAvailable.trim().length>0) {
+     filtroBebida.isAvailable = this.isAvailable === 'true';
+    }
+    this.filtroEmitter.emit(filtroBebida);
+    
+    
   }
 
   public limparFiltro() {
     this.filtro = '';
-    this.filtroEmitter.emit(this.filtro);
+    this.buscarBebidaPorNome();
   }
 }

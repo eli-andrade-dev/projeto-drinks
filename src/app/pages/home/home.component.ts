@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
-import { DrinksListMock } from '../../mocks/drinks-list.mock';
 import { DrinkType } from '../../types/drinks.types.component';
+import { DrinksService } from 'src/app/services/services';
+import { DrinkFilterType } from '../../types/drinks-filter.type';
+import { Router } from '@angular/router';
+
 
 
 @Component({
@@ -10,16 +13,30 @@ import { DrinkType } from '../../types/drinks.types.component';
 })
 export class HomeComponent {
   public listaBebidas: DrinkType[] = [];
+  
+  constructor(
+    private _drinkService: DrinksService,
+    private _router: Router
+){
+  this.filtrarBebidaPorNome();
+}
+public filtrarBebidaPorNome(filtro?: DrinkFilterType) {
+  this._drinkService.getListaBebidas(filtro).subscribe({
+    next: (resp) => {
+      this.listaBebidas = resp;
+      console.log('next');
+    },
+    error: (err) => {
+      console.log(err);
+      console.log('error');
+    },
+    complete: () => {
+      console.log('complete');
+    },
+  });
+}
 
-  constructor() {
-    this.listaBebidas = DrinksListMock;
-  }
-
-  public filtrarBebidaPorNome(nome: string) {
-    if(nome.length === 0) {
-      this.listaBebidas = DrinksListMock;
-      return;
-    }
-    this.listaBebidas = DrinksListMock.filter(beb => beb.name.toLowerCase().includes(nome.toLowerCase()));
-  }
+public getDetalhesEquipamento(id: string) {
+  this._router.navigate([`/details/${id}`]);
+}
 }
